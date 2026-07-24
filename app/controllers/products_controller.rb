@@ -12,12 +12,17 @@ class ProductsController < ApplicationController
     # データをデータベースに保存する
     if @product.save
       # 成功した場合、トップページへリダイレクト
-      redirect_to root_path
+      redirect_to products_path
     else
       # 失敗した場合、入力内容を保持したままフォームを再表示
       render :new, status: :unprocessable_entity
     end
   end
+
+  def index 
+    @products = Product.all 
+  end
+  
 
   private
 
