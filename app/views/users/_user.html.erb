@@ -4,6 +4,23 @@
     <%= user.name %>
   </div>
 
+  <p>
+   <strong>Photo:</strong>
+   <% if user.photo.attached? %>
+   <%= image_tag user.photo%>
+   <%end%>
+  </p>
+
+  <p>
+  <strong>Photo:</strong>
+  <% if user.photo.attached? %>
+    <!-- リサイズ後の画像（サムネイル）を表示 -->
+    <%= image_tag user.thumbnail %>
+    <!-- 元の画像を表示 -->
+    <%= image_tag user.photo %>
+  <% end %>
+</p>
+
   <div>
     <strong>Age:</strong>
     <%= user.age %>
