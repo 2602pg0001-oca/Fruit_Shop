@@ -1,3 +1,20 @@
+ class CartsController < ApplicationController
+  def show
+   @cart = Cart.find_by(user_id: current_user.id) 
+  user_cart_calculation
+  end
+
+  def index
+    # セッションからカートの情報を取得
+    if session[:cart].present?
+      # カート内の各アイテム（ハッシュ）から商品IDだけを取り出して配列にする
+      # .map は各要素に処理を施し、その結果を新しい配列として返すメソッド
+      product_ids = session[:cart].map { |item| item["id"] }
+      # 取り出したIDに該当する商品情報をまとめてデータベースから取得し、各IDをキーにしてハッシュ形式で取り出せるようにする（index_by）
+      @products = Product.where(id: product_ids).index_by(&:id)
+    end
+  end
+  
  def add_product
     # 空のカートもしくはカートの中に商品がない場合は初期化
     session[:cart] ||= []

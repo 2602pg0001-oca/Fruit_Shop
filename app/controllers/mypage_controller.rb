@@ -1,15 +1,15 @@
 class MypageController < ApplicationController
-  # ログインユーザのみアクセス許可
+  # Allow access only to logged-in users
   before_action :authenticate_user!
 
   def show
-    # 指定されたIDのユーザ情報を取得
-    @user = User.find(params[:id])
+    # Fetch the currently logged-in user
+    @user = current_user
   end
 
   private
 
-    # 許可するユーザ情報のパラメータ
+    # Permitted user parameters
     def user_params
       params.require(:user).permit(:name, :email, :admin_flg)
     end
